@@ -1,6 +1,6 @@
 /******************************************************************
  *
- *   YOUR NAME / SECTION NUMBER
+ *   Gianna Dubinski / COMP 272-001
  *
  *   Note, additional comments provided throughout this source code
  *   is for educational purposes
@@ -245,12 +245,47 @@ public class CuckooHash<K, V> {
 	 */
 
  	public void put(K key, V value) {
+		//Initializing trys
+        	int trys = 0;
 
-		// ADD YOUR CODE HERE - DO NOT FORGET TO ADD YOUR NAME AT TOP OF FILE.
-		// Also make sure you read this method's prologue above, it should help
-		// you. Especially the two HINTS in the prologue.
+        	//A bucket was made for the elements that are being inserted
+       		Bucket<K, V> Bucket1 = new Bucket<>(key, value);
+		
+		//Initializing a boolean, useH1 to true to keep track of the element
+        	boolean useH1 = true;
 
-		return;
+        	/*
+        	While loop is to state for try to be less than CAPACITY.
+        	Then initializing pos to know when to use has1(key) or hash2(key).
+        	If statement for if the pos is empty to place the element in Bucket1 and then to return.
+        	If statement for if the pos has a slot that meets the requirements for key and value,
+        	if it meets the requirements, to then return.
+        	A bucket for temporary placement.
+        	The key from the bucket is from Bucket1 and is assigned.
+        	In Bucket1 the extracted is assigned to value.
+        	useH1 flips between true and false.
+        	trys is utilized as a counter.
+         	*/
+        	while(trys < CAPACITY) {
+			int pos = useH1 ? hash1(key) : hash2(key);
+
+            		if(table[pos] == null) {
+				table[pos] = Bucket1;
+                		return;
+			}
+			
+			if(table[pos].getBucKey().equals(key) && table[pos].getValue().equals(value)) {
+                		return;
+            		}
+
+            		Bucket<K, V> temp = table[pos];
+            		table[pos] = Bucket1;
+            		Bucket1 = temp;
+
+            		useH1 = !useH1;
+            		trys++;
+		}
+		rehash();
 	}
 
 
