@@ -31,10 +31,26 @@ class ProblemSolutions {
      */
 
     public boolean isSubset(int list1[], int list2[]) {
+        
+        //Set of Integers and implements set of HashSet
+        Set<Integer> set = new HashSet<>();
 
-        // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
+        //For loop iterates num in list1 to be added to the set
+        for (int num : list1) {
+            set.add(num);
+        }
 
-        return false;
+        /*
+        For loop iterates num in list2.
+        If statement checks if the set does not contain num,
+        if so return false.
+         */
+        for (int num : list2) {
+            if (!set.contains(num)) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -53,9 +69,24 @@ class ProblemSolutions {
 
     public int findKthLargest(int[] array, int k) {
 
-        // ADD YOUR CODE HERE
+        //Priority Queue has Integers and pq is created an empty Priority Queue.
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
-        return 0;
+        /*
+        For loop iterates num in array.
+        Each num is added to pq.
+        An if statement checks the pq size is greater than k.
+        Removes from pq if not greater than k.
+        Returns small num to the front of the pq
+         */
+        for (int num : array) {
+            pq.add(num);
+
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+        return pq.peek();
     }
 
 
@@ -74,9 +105,34 @@ class ProblemSolutions {
 
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
-        // ADD YOU CODE HERE
+        //List holds Integers in a combinedList in a new ArrayList
+        List<Integer> combinedList = new ArrayList<>();
 
-        return null;
+        //For loop iterates num in array1. Each num is added to the combinedList.
+        for (int num : array1) {
+            combinedList.add(num);
+        }
+
+        //For loop iterates num in array2. Each num is added to the combinedList.
+        for (int num : array2) {
+            combinedList.add(num);
+        }
+
+        //Sorts the list in the combinedList in ascending order.
+        Collections.sort(combinedList);
+
+        //Initializes result array to the size of the combinedList.
+        int[] result = new int[combinedList.size()];
+
+        /*
+        For loop, checks each element in combinedList using i.
+        Getting the element from i in the combinedList to assign it to the same index as the result.
+        Result is then returned.
+         */
+        for (int i = 0; i < combinedList.size(); i++) {
+            result[i] = combinedList.get(i);
+        }
+        return result;
     }
 
 }
